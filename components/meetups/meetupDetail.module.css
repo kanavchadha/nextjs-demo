@@ -1,0 +1,10 @@
+.details{
+    max-width: 60rem;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.details img{
+    max-height: 360px;
+    max-width: 100%;
+}
