@@ -35,7 +35,7 @@ export async function getStaticProps() {
         // console.log(result);
         client.close();
         return {
-            revalidate: 1000000, // this will try in every 10s to request to a nextjs server or recreate this page internally if there are any changes and render new thing if something is changed.
+            revalidate: 10, // this will try in every 10s to request to a nextjs server or recreate this page internally if there are any changes and render new thing if something is changed.
             props: {
                 meetups: meetups
             }
@@ -43,7 +43,7 @@ export async function getStaticProps() {
     } catch (err) {
         console.log(err);
         return {
-            revalidate: 1000000,
+            revalidate: 10,
             props: {
                 meetups: [],
                 error: err.message

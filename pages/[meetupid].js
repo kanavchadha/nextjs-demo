@@ -30,7 +30,7 @@ export async function getStaticPaths() { // neccessary in dynamic pages. To tell
         return {
             //paths is arrays contains the list of params (dynamic thing) for which we want the page to be prerendered. 
             paths: result.map(m => ({ params: { meetupid: m._id.toString() } })),
-            fallback: false // if false -- then this means our path array contains full list of params which we can have. so this means if user enter anything else that these values then nextjs will show 404 page. And if it is true then nextjs will try to build page for that value at run time dynamically on it's server.
+            fallback: 'blocking' // if false -- then this means our path array contains full list of params which we can have. so this means if user enter anything else that these values then nextjs will show 404 page. And if it is true then nextjs will try to build page for that value at run time dynamically on it's server. blocking is similar to true, the only difference is it serves only when the pregenerated page is ready when it doesn't find that page and true show empty page for mean time.
         }
     } catch (err) {
         console.log(err);
@@ -46,7 +46,7 @@ export async function getStaticProps(context) {
         const result = await meetupColletion.findOne({ _id: ObjectId(context.params.meetupid) });
         client.close();
         return {
-            revalidate: 1000000, // this will try in every 10s to request to a nextjs server or recreate this page internally if there are any changes and render new thing if something is changed.
+            revalidate: 10, // this will try in every 10s to request to a nextjs server or recreate this page internally if there are any changes and render new thing if something is changed.
             props: {
                 meetup: {
                     image: result.image,
